@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download EmiratesX - UAE Cultural Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #D82C20; /* UAE red */
+            --secondary: #000000; /* UAE black */
+            --accent: #FFD700; /* Gold accent */
+            --light: #f5f6fa;
+            --dark: #2d3436;
+            --text: #333333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+        
+        /* Animated background elements */
+        .bg-circle {
+            position: fixed;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(216, 44, 32, 0.1), transparent);
+            opacity: 0.3;
+            z-index: -1;
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        .bg-circle:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+        
+        .bg-circle:nth-child(2) {
+            width: 500px;
+            height: 500px;
+            bottom: -200px;
+            right: -200px;
+            animation-delay: 2s;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(20px, 20px);
+            }
+        }
+        
+        /* Header */
+        header {
+            padding: 2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 2rem;
+        }
+        
+        nav ul li a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 5rem 5%;
+            min-height: 80vh;
+        }
+        
+        .hero-content {
+            flex: 1;
+            padding-right: 2rem;
+            animation: slideInLeft 1s ease-out;
+        }
+        
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #666;
+            max-width: 600px;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            align-items: center;
+        }
+        
+        .download-btn {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .download-btn i {
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+        
+        .ios-btn {
+            background: linear-gradient(to right, #007AFF, #0040FF);
+        }
+        
+        .android-btn {
+            background: linear-gradient(to right, #3DDC84, #2BB673);
+        }
+        
+        .stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .hero-media {
+            flex: 1;
+            position: relative;
+            animation: slideInRight 1s ease-out;
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .video-container video {
+            width: 100%;
+            display: block;
+        }
+        
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .video-overlay:hover {
+            opacity: 1;
+        }
+        
+        .play-btn {
+            width: 60px;
+            height: 60px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .play-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .play-btn i {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-left: 5px;
+        }
+        
+        /* App Features Section */
+        .features {
+            padding: 5rem 5%;
+            background-color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            color: var(--dark);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background-color: var(--light);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(to bottom right, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 2rem;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* CTA Section */
+        .cta {
+            padding: 5rem 5%;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            position: relative;
+            z-index: 1;
+            opacity: 0.9;
+        }
+        
+        .cta .download-btn {
+            position: relative;
+            z-index: 1;
+            display: inline-flex;
+        }
+        
+        .cta-pattern {
+            position: absolute;
+            opacity: 0.05;
+            font-size: 300px;
+            color: white;
+        }
+        
+        .cta-pattern:nth-child(1) {
+            top: -50px;
+            left: -50px;
+        }
+        
+        .cta-pattern:nth-child(2) {
+            bottom: -50px;
+            right: -50px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 5%;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column ul li a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                transform: translateX(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-content {
+                padding-right: 0;
+                margin-bottom: 3rem;
+            }
+            
+            .cta-buttons, .stats {
+                justify-content: center;
+            }
+            
+            .video-container {
+                max-width: 400px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            nav ul {
+                display: none;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .feature-card {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .cta-buttons {
+                flex-direction: column;
+            }
+            
+            .download-btn {
+                justify-content: center;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-content p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated background elements -->
+    <div class="bg-circle"></div>
+    <div class="bg-circle"></div>
+    
+    <!-- Header -->
+    <header>
+        <a href="#" class="logo">
+            <i class="fas fa-star"></i>
+            <span>EmiratesX</span>
+        </a>
+        <nav>
+            <ul>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#download">Download</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Discover UAE's Culture with EmiratesX</h1>
+            <p>An all-in-one app for learning Arabic, exploring UAE heritage, shopping authentic products, and connecting with the community. Created by Mohammed Ayaan for the ADNOC competition.</p>
+            
+            <div class="cta-buttons">
+                <a href="#" class="download-btn ios-btn">
+                    <i class="fab fa-apple"></i>
+                    Download for iOS
+                </a>
+                <a href="https://drive.usercontent.google.com/download?id=1pFSzm-DUKjYmKDwuRciPqVv4Q6iKd1C1&export=download" class="download-btn android-btn">
+                    <i class="fab fa-google-play"></i>
+                    Download for Android
+                </a>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">UAE Focused</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">19</div>
+                    <div class="stat-label">EX Store Products</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">28</div>
+                    <div class="stat-label">Arabic Letters</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="hero-media">
+            <div class="video-container">
+                <!-- Replace with your video -->
+                <video poster="https://via.placeholder.com/500x890/D82C20/ffffff?text=EmiratesX+App" controls>
+                    <source src="EmiratesXX.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="video-overlay">
+                    <div class="play-btn">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- App Features Section -->
+    <section class="features" id="features">
+        <h2 class="section-title">App Features</h2>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-store"></i>
+                </div>
+                <h3>EX Store</h3>
+                <p>Shop 19 authentic UAE products across 4 categories: Kitchenware, Home Décor, Eco-Friendly Products, and Books & Education.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-language"></i>
+                </div>
+                <h3>Learn Arabic</h3>
+                <p>Comprehensive course with alphabets, words, and quizzes that contribute to your leaderboard score.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-landmark"></i>
+                </div>
+                <h3>UAE Culture</h3>
+                <p>Explore UAE's art, culture, festivals, and historical places through rich multimedia content.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <h3>Eco Tips</h3>
+                <p>Daily refreshed AI-generated eco-friendly tips across 7 categories to promote sustainable living.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3>EX AI</h3>
+                <p>Get answers about UAE culture, language, and the app features through our intelligent assistant.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h3>Leaderboard</h3>
+                <p>Compete with other users and track your progress in learning Arabic and exploring UAE culture.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta" id="download">
+        <i class="fas fa-circle cta-pattern"></i>
+        <i class="fas fa-circle cta-pattern"></i>
+        
+        <h2>Ready to Explore UAE Culture?</h2>
+        <p>Download EmiratesX now and begin your journey through the rich heritage of the United Arab Emirates.</p>
+        
+        <div class="cta-buttons">
+            <a href="#" class="download-btn ios-btn pulse">
+                <i class="fab fa-apple"></i>
+                Download for iOS
+            </a>
+            <a href="https://drive.usercontent.google.com/download?id=1pFSzm-DUKjYmKDwuRciPqVv4Q6iKd1C1&export=download" class="download-btn android-btn pulse">
+                <i class="fab fa-google-play"></i>
+                Download for Android
+            </a>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>EmiratesX</h3>
+                <p>The ultimate app for discovering UAE culture, learning Arabic, and shopping authentic products.<br><br></p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#download">Download</a></li>
+                </ul>
+            </div>
+            
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2023 EmiratesX. Created by Mohammed Ayaan for ADNOC competition.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Video play button
+        const videoContainer = document.querySelector('.video-container');
+        const video = videoContainer.querySelector('video');
+        const playBtn = videoContainer.querySelector('.play-btn');
+        
+        playBtn.addEventListener('click', () => {
+            if (video.paused) {
+                video.play();
+                playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            } else {
+                video.pause();
+                playBtn.innerHTML = '<i class="fas fa-play"></i>';
+            }
+        });
+        
+        video.addEventListener('play', () => {
+            playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            videoContainer.querySelector('.video-overlay').style.opacity = '0';
+        });
+        
+        video.addEventListener('pause', () => {
+            playBtn.innerHTML = '<i class="fas fa-play"></i>';
+            videoContainer.querySelector('.video-overlay').style.opacity = '1';
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Animation on scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.feature-card, .section-title');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (elementPosition < screenPosition) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        }
+        
+        // Set initial state for animated elements
+        document.querySelectorAll('.feature-card, .section-title').forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(20px)';
+            element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        });
+        
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+    </script>
+</body>
+</html>
