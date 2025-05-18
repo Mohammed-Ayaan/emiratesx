@@ -1,0 +1,1766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmiratesX - UAE Cultural Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Styles from index.html */
+        :root {
+            --primary: #1E3A8A; /* Dark blue */
+            --secondary: #3B82F6; /* Medium blue */
+            --accent: #10B981; /* Green */
+            --light: #F9FAFB;
+            --dark: #1F2937;
+            --text: #374151;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #f6f9fc;
+            color: var(--dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            font-weight: 800;
+            margin-right: 10px;
+            font-size: 2rem;
+            line-height: 1;
+            letter-spacing: -8px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav ul li a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 1rem;
+            position: relative;
+        }
+
+        nav ul li a:hover {
+            color: var(--secondary);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--secondary);
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 5rem 10%;
+            background: linear-gradient(to bottom, #b2e8d6, #f6f9fc);
+        }
+
+        .hero-content {
+            flex: 1;
+            padding-right: 3rem;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            color: var(--primary);
+            font-weight: 700;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--text);
+            max-width: 500px;
+            animation: fadeInUp 1s ease-out 0.2s forwards;
+            opacity: 0;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            align-items: center;
+            animation: fadeInUp 1s ease-out 0.4s forwards;
+            opacity: 0;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .download-btn i {
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+
+        .android-btn {
+            background-color: var(--accent);
+        }
+
+        .stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+            animation: fadeInUp 1s ease-out 0.6s forwards;
+            opacity: 0;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .hero-media {
+            flex: 1;
+            position: relative;
+            animation: fadeIn 1s ease-out 0.4s forwards;
+            opacity: 0;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin: 0 auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transform: perspective(1000px) rotateY(-5deg);
+            transition: transform 0.5s ease;
+        }
+
+        .video-container:hover {
+            transform: perspective(1000px) rotateY(0deg);
+        }
+
+        .video-container video {
+            width: 100%;
+            display: block;
+        }
+
+        /* App Features Section */
+        .features {
+            padding: 5rem 10%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+            color: var(--primary);
+            font-weight: 700;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .section-titlea {
+            margin-top: 2rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+            color: var(--primary);
+            font-weight: 700;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .section-titlea::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            margin: 1rem auto 0;
+            border-radius: 2px;
+            animation: scaleIn 0.8s ease-out 0.3s forwards;
+            transform: scaleX(0);
+            transform-origin: center;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            margin: 1rem auto 0;
+            border-radius: 2px;
+            animation: scaleIn 0.8s ease-out 0.3s forwards;
+            transform: scaleX(0);
+            transform-origin: center;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            padding-top: 4.5rem;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid #E5E7EB;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.2s; }
+        .feature-card:nth-child(2) { animation-delay: 0.3s; }
+        .feature-card:nth-child(3) { animation-delay: 0.4s; }
+        .feature-card:nth-child(4) { animation-delay: 0.5s; }
+        .feature-card:nth-child(5) { animation-delay: 0.6s; }
+        .feature-card:nth-child(6) { animation-delay: 0.7s; }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            border-color: var(--secondary);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(to bottom right, var(--primary), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 1.8rem;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+
+        .feature-card p {
+            color: var(--text);
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        /* App Preview Section */
+        .app-preview {
+            padding: 2rem 10%;
+            text-align: center;
+        }
+
+        .iphone-frame {
+            position: relative;
+            width: 420px; /* Increased from 360px */
+            height: 747px; /* Increased proportionally (9:16 ratio) */
+            margin: 0 auto;
+            background: #000;
+            border-radius: 50px;
+            padding: 20px; /* Increased padding */
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-out 0.8s forwards;
+            opacity: 0;
+        }
+
+        .iphone-screen {
+            width: 100%;
+            height: 100%;
+            border-radius: 35px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .iphone-screen iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 15% 2rem;
+            padding-left: 20%;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 6fr 1fr;
+            gap: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: white;
+            font-weight: 600;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-column ul li a {
+            color: #D1D5DB;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+            position: relative;
+        }
+
+        .footer-column ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: white;
+            transition: width 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: white;
+        }
+
+        .footer-column ul li a:hover::after {
+            width: 100%;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #9CA3AF;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 4rem 5%;
+            }
+
+            .hero-content {
+                padding-right: 0;
+                margin-bottom: 3rem;
+            }
+
+            .cta-buttons {
+                justify-content: center;
+            }
+
+            .stats {
+                justify-content: center;
+            }
+
+            .video-container {
+                max-width: 550px;
+            }
+
+            .features {
+                padding: 5rem 10%;
+            }
+
+            .features-grid {
+                padding-top: 4rem;
+            }
+
+            .app-preview {
+                padding: 4rem 5%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            nav ul {
+                display: none;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .iphone-frame {
+                width: 350px;
+                height: 622px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .download-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .iphone-frame {
+                width: 300px;
+                height: 533px;
+                border-radius: 40px;
+                padding: 15px;
+            }
+        }
+
+        /* Styles from index2.html - Integrated */
+        :root {
+            /* Keeping index.html primary colors, adding index2 specific ones if needed */
+            --primary-ex: #6772e5; /* Primary from index2 */
+            --primary-light-ex: #7795f8; /* Primary light from index2 */
+            --secondary-ex: #24b47e; /* Secondary from index2 */
+            --dark-ex: #1a1a1a; /* Dark from index2 */
+            --light-ex: #f6f9fc; /* Light from index2 */
+            --gray-ex: #6b7c93; /* Gray from index2 */
+            --white-ex: #ffffff; /* White from index2 */
+            --shadow-ex: 0 15px 35px rgba(50,50,93,.1), 0 5px 15px rgba(0,0,0,.07); /* Shadow from index2 */
+        }
+
+        .container {
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 80px 5%; /* Adjust padding to fit index.html spacing */
+        }
+
+        .classifier-container,
+        .gallery-section,
+        .about-section {
+            background: white; /* Use index.html white */
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Use index.html shadow style */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .input-methods {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .method-btn {
+            background: var(--light); /* Use index.html light */
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .method-btn.active {
+            background: var(--primary); /* Use index.html primary */
+            color: white;
+        }
+
+        .method-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Use index.html shadow style */
+        }
+
+        .upload-area {
+            width: 100%;
+            max-width: 500px;
+            border: 2px dashed var(--gray-ex); /* Use index2 gray for dashed border */
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-area:hover {
+            border-color: var(--primary); /* Use index.html primary on hover */
+        }
+
+        .upload-area i {
+            font-size: 3rem;
+            color: var(--primary); /* Use index.html primary */
+            margin-bottom: 20px;
+        }
+
+        .upload-area p {
+            color: var(--text); /* Use index.html text color */
+        }
+
+        #file-input {
+            display: none;
+        }
+
+        #image-preview, #webcam-preview {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 8px;
+            display: none;
+            margin-bottom: 50px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Use index.html shadow style */
+        }
+
+        #webcam-container {
+            display: none;
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+            margin-bottom: 50px;
+        }
+
+        #webcam {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Use index.html shadow style */
+        }
+
+        #capture-btn {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent); /* Use index.html accent */
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Use index.html shadow style */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .url-input-container {
+            display: none;
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 30px;
+        }
+
+        .url-input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid var(--gray-ex); /* Use index2 gray */
+            border-radius: 4px;
+            font-size: 1rem;
+            margin-right: 10px;
+        }
+
+        .result-container {
+            width: 100%;
+            max-width: 500px;
+            background: var(--light); /* Use index.html light */
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            display: none;
+            margin-bottom: 50px;
+        }
+
+        #analyzing-text {
+            display: none;
+            width: 100%;
+            max-width: 500px;
+            background: var(--light); /* Use index.html light */
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--primary); /* Use index.html primary */
+            margin-bottom: 30px;
+        }
+
+        .result-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary); /* Use index.html primary */
+        }
+
+        .confidence-meter {
+            height: 10px;
+            background: #e6e9f0;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .confidence-level {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary), var(--secondary)); /* Use index.html gradient */
+            width: 0%;
+            transition: width 1s ease;
+        }
+
+        .confidence-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark); /* Use index.html dark */
+            margin: 10px 0;
+        }
+
+        .prediction-class {
+            font-size: 1.5rem;
+            color: var(--accent); /* Use index.html accent */
+            margin-bottom: 20px;
+        }
+
+        .waste-info {
+            text-align: left;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(103, 114, 229, 0.1); /* Keep index2 background with primary-ex color */
+            border-radius: 8px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+
+        .action-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .primary-btn {
+            background: var(--primary); /* Use index.html primary */
+            color: white;
+        }
+
+        .secondary-btn {
+            background: var(--light); /* Use index.html light */
+            border: 1px solid var(--gray-ex); /* Use index2 gray */
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Use index.html shadow style */
+        }
+
+        /* Features grid already exists in index.html, keeping index2 styles for cards */
+        /* .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 80px;
+        } */ /* Already defined above */
+
+        /* Feature card styles from index2, adjusted */
+        .feature-card-ex { /* Renamed to avoid conflict */
+            background: white; /* Use index.html white */
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Use index.html shadow style */
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card-ex:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card-ex i {
+            font-size: 2.5rem;
+            color: var(--primary); /* Use index.html primary */
+        }
+
+        .feature-card-ex h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        /* About section styles from index2, adjusted */
+        .about-section {
+            margin-top: 80px;
+            background: white; /* Use index.html white */
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Use index.html shadow style */
+        }
+
+        .about-section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary); /* Use index.html primary */
+        }
+
+        .about-section p {
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .about-section a {
+            color: var(--primary); /* Use index.html primary */
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .about-section a:hover {
+            text-decoration: underline;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .about-feature {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .about-feature i {
+            font-size: 1.8rem;
+            color: var(--accent); /* Use index.html accent */
+            margin-top: 5px;
+        }
+
+        /* Waste types section from index2, adjusted */
+        .waste-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .waste-type {
+            background: white; /* Use index.html light */
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .waste-type:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Use index.html shadow style */
+        }
+
+        .waste-type h4 {
+            color: var(--primary); /* Use index.html primary */
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Animation classes from index2 */
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Webcam specific styles from index2 */
+        #capture-btn {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent); /* Use index.html accent */
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Use index.html shadow style */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .switch-camera-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Use index.html shadow style */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: var(--primary); /* Use index.html primary */
+            z-index: 10;
+        }
+
+        .switch-camera-btn:hover {
+            background: var(--white); /* Use index.html white */
+        }
+
+        /* Gallery section styles from index2, adjusted */
+        .gallery-section {
+            margin-top: 100px;
+            padding: 40px;
+            background: white; /* Use index.html light */
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Use index.html shadow style */
+        }
+
+        .section-description {
+            text-align: center;
+            color: var(--text); /* Use index.html text color */
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+
+        .section-description2 {
+            text-align: center;
+            color: var(--text); /* Use index.html text color */
+            font-size: 1.1rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .gallery-card {
+            background: var(--white); /* Use index.html white */
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Use index.html shadow style */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15), 0 5px 10px rgba(0, 0, 0, 0.1); /* Adjusted shadow */
+        }
+
+        .gallery-media {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-bottom: 1px solid #E5E7EB; /* Use index.html border color */
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+
+        .gallery-caption {
+            padding: 16px 20px;
+        }
+
+        .gallery-caption h4 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: var(--primary); /* Use index.html primary */
+        }
+
+        .gallery-caption p {
+            font-size: 0.95rem;
+            color: var(--text); /* Use index.html text color */
+        }
+
+        /* Responsive for smaller devices - Keeping index2 responsiveness but adjusting breakpoints if needed */
+        @media (max-width: 992px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Responsive adjustments from index2, integrated */
+        @media (max-width: 768px) {
+
+            .classifier-container {
+                padding: 20px;
+            }
+
+            .input-methods {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .method-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+    </style>
+     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.11.0"></script>
+</head>
+<body>
+    <header>
+        <a href="#" class="logo">
+            <span class="logo-icon">EX</span>
+            <span>EmiratesX</span>
+        </a>
+        <nav>
+            <ul>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#preview">Preview</a></li>
+                <li><a href="#classifier">EX Vision</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Discover UAE's Culture with EmiratesX</h1>
+            <p>An all-in-one app for learning Arabic, exploring UAE heritage, shopping authentic products, and connecting with the community.</p>
+
+            <div class="cta-buttons">
+                <a href="assets/EmiratesX.apk" class="download-btn android-btn" download="EmiratesX.apk">
+                    <i class="fab fa-google-play"></i>
+                    Download APK (Android)
+                </a>
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">UAE Focused</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">19</div>
+                    <div class="stat-label">EX Store Products</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">2+</div>
+                    <div class="stat-label">Hours of Content</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-media">
+            <div class="video-container">
+                <video poster="https://via.placeholder.com/650x1156/1E3A8A/ffffff?text=EmiratesX+App" controls>
+                    <source src="assets/EmiratesX.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <h2 class="section-title">App Features</h2>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-store"></i>
+                </div>
+                <h3>EX Store</h3>
+                <p>Shop 19 authentic UAE products across 4 categories: Kitchenware, Home Décor, Eco-Friendly Products, and Books & Education.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-language"></i>
+                </div>
+                <h3>Learn Arabic</h3>
+                <p>Comprehensive course with alphabets, words, and quizzes that contribute to your leaderboard score.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-landmark"></i>
+                </div>
+                <h3>UAE Culture</h3>
+                <p>Explore UAE's art, culture, festivals, and historical places through rich multimedia content.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <h3>Eco Tips</h3>
+                <p>Daily refreshed AI-generated eco-friendly tips across 7 categories to promote sustainable living.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3>EX AI</h3>
+                <p>Get answers about UAE culture, language, and the app features through our intelligent assistant.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-eye"></i>
+                </div>
+                <h3>EX Vision</h3> 
+                <p>Identify iconic UAE landmarks using our AI-powered image recognition tool right within the app.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="app-preview" id="preview">
+        <h2 class="section-title">Try EmiratesX Online</h2>
+        <p>Experience the app right in your browser before downloading</p>
+        <br>
+        <div class="iphone-frame">
+            <div class="iphone-screen">
+                <iframe src="https://emiratesx.flutterflow.app/" title="EmiratesX App Preview"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <section id="classifier" class="classifier-container fade-in">
+            <h2 class="section-titlea">Landmark Detection</h2>
+            <p class="section-description2">Select your input method to identify the landmark in the image<br><br></p>
+
+            <div class="input-methods">
+                <button class="method-btn active" id="upload-btn-method">
+                    <i class="fas fa-upload"></i> Upload Image
+                </button>
+                <button class="method-btn" id="webcam-btn-method">
+                    <i class="fas fa-camera"></i> Use Webcam
+                </button>
+            </div>
+
+            <div class="upload-area" id="upload-area">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <h3>Drag & Drop or Click to Upload</h3>
+                <p>Supported formats: JPG, PNG, WEBP (Max 5MB)</p>
+                <input type="file" id="file-input" accept="image/*">
+            </div>
+
+            <div id="webcam-container">
+                <video id="webcam" autoplay playsinline></video>
+                <button id="switch-camera-btn" class="switch-camera-btn">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+                <button id="capture-btn"><i class="fas fa-camera"></i></button>
+            </div>
+
+            <img id="image-preview" alt="Preview of uploaded image">
+
+            <div id="analyzing-text"></div>
+
+            <div class="result-container" id="result-container">
+                <h3 class="result-title">Detection Result</h3>
+                <div class="prediction-class" id="prediction-class"></div>
+                <div class="confidence-meter">
+                    <div class="confidence-level" id="confidence-level"></div>
+                </div>
+                <div class="confidence-value" id="confidence-value"></div>
+
+                <div class="waste-info" id="waste-info">
+                    <h4><i class="fas fa-info-circle"></i> Landmark Information</h4>
+                    <p id="disposal-method"></p>
+                    <p id="recycling-info"></p>
+                    <p id="environmental-impact"></p>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="action-btn primary-btn" id="new-classification-btn">
+                        <i class="fas fa-redo"></i> New Detection
+                    </button>
+                    <button class="action-btn secondary-btn" id="learn-more-btn">
+                        <i class="fas fa-book"></i> Learn More
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery" class="gallery-section fade-in">
+            <h2 class="section-title">Landmark Detection Gallery</h2>
+            <p class="section-description">Real examples of our AI system identifying landmarks using uploaded images and webcam.</p>
+
+            <div class="gallery-grid">
+                <div class="gallery-card">
+                    <video controls class="gallery-media">
+                        <source src="assets\v1.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="gallery-caption">
+                        <h4>Landmark Detection</h4>
+                        <p>Classification with Python.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-card">
+                    <video controls class="gallery-media">
+                        <source src="assets\v2.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="gallery-caption">
+                        <h4>Landmark Detection</h4>
+                        <p>Classification with ESP32 and LCD.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-card">
+                    <img src="assets\i1.png" alt="Organic Waste" class="gallery-media">
+                    <div class="gallery-caption">
+                        <h4>EX Vision Poster</h4>
+                        <p>Everything briefed in one image.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="landmarks" class="about-section fade-in">
+            <h2 class="section-title">Landmarks Detected by EX Vision</h2>
+            <p class="section-description">EX Vision currently identifies the following iconic UAE landmarks. More locations may be added in the future as the model evolves:</p>
+
+            <div class="waste-types">
+                <div class="waste-type">
+                    <h4><i class="fas fa-building"></i> Burj Khalifa</h4>
+                    <p>Located in Dubai, the Burj Khalifa is the tallest structure in the world, standing at over 828 meters. It’s a global symbol of innovation and engineering excellence.</p>
+                </div>
+
+                <div class="waste-type">
+                    <h4><i class="fas fa-hotel"></i> Burj Al Arab</h4>
+                    <p>This luxury hotel, also in Dubai, is known for its sail-shaped silhouette and is one of the most recognizable hotel buildings in the world.</p>
+                </div>
+
+                <div class="waste-type">
+                    <h4><i class="fas fa-mosque"></i> Sheikh Zayed Grand Mosque</h4>
+                    <p>Located in Abu Dhabi, this mosque is one of the largest in the world. It is renowned for its stunning white marble, intricate design, and cultural significance.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="features-grid"> 
+            <div class="feature-card-ex fade-in"> <i class="fas fa-image"></i>
+                <h3 style="margin-top: 0.5rem;">Custom Image Dataset</h3>
+                <p>EX Vision is powered by a dataset built from scratch using curated images of UAE landmarks, ensuring tailored accuracy and performance.</p>
+            </div>
+
+            <div class="feature-card-ex fade-in"> <i class="fas fa-robot"></i>
+                <h3 style="margin-top: 0.5rem;">Efficient Deep Learning</h3>
+                <p>Using a lightweight convolutional neural network optimized for real-time classification in the browser, EX Vision delivers fast and accurate results without extra installations.</p>
+            </div>
+
+            <div class="feature-card-ex fade-in"> <i class="fas fa-globe-asia"></i>
+                <h3 style="margin-top: 0.5rem;">Showcasing UAE Icons</h3>
+                <p>Designed to promote cultural awareness and technological innovation, EX Vision celebrates the architectural wonders of the United Arab Emirates.</p>
+            </div>
+        </div>
+    </div>
+
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>EmiratesX</h3>
+                <p>This is a UAE-focused educational and eco-awareness app developed by Mohammed Ayaan for the ADNOC competition. It features Arabic language learning, daily AI-generated eco tips, a quiz-based leaderboard, a smart EX Store with 19 products across 4 categories, and informative sections on UAE’s culture, arts, festivals, and history. The app supports light/dark modes, user profiles, and secure sign-in, with an AI assistant that answers all app-related questions.</p>
+            </div>
+
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#preview">Preview</a></li>
+                     <li><a href="#classifier">EX Vision</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 EmiratesX. Created by Mohammed Ayaan for ADNOC competition.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links with offset (from index.html)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const headerHeight = document.querySelector('header').offsetHeight;
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+
+                    // Update URL without jumping
+                    if (history.pushState) {
+                        history.pushState(null, null, targetId);
+                    } else {
+                        window.location.hash = targetId;
+                    }
+                }
+            });
+        });
+
+        // Video play button functionality (from index.html)
+        const videoContainer = document.querySelector('.video-container');
+        if (videoContainer) {
+            const video = videoContainer.querySelector('video');
+            if (video) {
+                video.addEventListener('click', function() {
+                    if (video.paused) {
+                        video.play();
+                    } else {
+                        video.pause();
+                    }
+                });
+            }
+        }
+
+        // JavaScript from index2.html - Integrated
+        // DOM Elements
+        const uploadArea = document.getElementById('upload-area');
+        const fileInput = document.getElementById('file-input');
+        const imagePreview = document.getElementById('image-preview');
+        const resultContainer = document.getElementById('result-container');
+        const predictionClass = document.getElementById('prediction-class');
+        const confidenceLevel = document.getElementById('confidence-level');
+        const confidenceValue = document.getElementById('confidence-value');
+        const disposalMethod = document.getElementById('disposal-method');
+        const recyclingInfo = document.getElementById('recycling-info'); // This might not be needed for landmarks
+        const environmentalImpact = document.getElementById('environmental-impact'); // This might not be needed for landmarks
+        const newClassificationBtn = document.getElementById('new-classification-btn');
+        const learnMoreBtn = document.getElementById('learn-more-btn');
+        const analyzingText = document.getElementById('analyzing-text');
+
+        // Input method elements
+        const uploadMethodBtn = document.getElementById('upload-btn-method');
+        const webcamMethodBtn = document.getElementById('webcam-btn-method');
+        const webcamContainer = document.getElementById('webcam-container');
+        const webcam = document.getElementById('webcam');
+        const captureBtn = document.getElementById('capture-btn');
+
+        // Contact form elements (Not included in HTML, but keeping variables for completeness if needed later)
+        // const contactForm = document.getElementById('contact-form');
+        // const nameInput = document.getElementById('name');
+        // const emailInput = document.getElementById('email');
+        // const categoryInput = document.getElementById('category');
+        // const messageInput = document.getElementById('message');
+
+        const landmarkDatabase = {
+            "Burj Khalifa": {
+                info: "Burj Khalifa is the tallest building in the world, located in Dubai, UAE.",
+            },
+            "Burj Al Arab": {
+                info: "Burj Al Arab is a luxury hotel in Dubai, known for its sail-like design.",
+            },
+            "Sheikh Zayed Grand Mosque": {
+                info: "One of the world’s largest mosques, located in Abu Dhabi, known for its stunning architecture.",
+            },
+            "Empty": {
+                info: "No recognizable landmark was detected in the image.",
+            }
+        };
+
+        // Current active input method
+        let activeMethod = 'upload';
+        let currentFacingMode = 'environment'; // Default to back camera
+        const switchCameraBtn = document.getElementById('switch-camera-btn');
+
+        // Load Teachable Machine model
+        let model, labels;
+        async function loadModel() {
+            try {
+                // Show loading state
+                predictionClass.textContent = 'Loading model...';
+                resultContainer.style.display = 'block';
+
+                // Load model
+                // Make sure the model path is correct relative to the combined index.html
+                model = await tf.loadLayersModel('models/model.json');
+
+                // Load labels from metadata
+                 // Make sure the metadata path is correct relative to the combined index.html
+                const metadata = await fetch('models/metadata.json').then(res => res.json());
+                labels = metadata.labels;
+
+                console.log("Model and labels loaded successfully");
+                resultContainer.style.display = 'none';
+            } catch (err) {
+                console.error("Error loading model:", err);
+                resultContainer.style.display = 'block';
+                predictionClass.textContent = 'Error loading model';
+                confidenceValue.textContent = '0%';
+                confidenceLevel.style.width = '0%';
+                disposalMethod.textContent = 'Please check console for details';
+            }
+        }
+
+        // Initialize
+        loadModel();
+
+        // Smooth scroll for anchor links (Already defined, keeping index.html version)
+        /* document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const navbarHeight = 120; // Adjust this value based on your navbar height
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        }); */ // Using index.html version
+
+        // Set up input method switching
+        uploadMethodBtn.addEventListener('click', () => switchInputMethod('upload'));
+        webcamMethodBtn.addEventListener('click', () => switchInputMethod('webcam'));
+
+        function switchInputMethod(method) {
+            activeMethod = method;
+
+            // Reset all UI elements
+            uploadArea.style.display = 'none';
+            webcamContainer.style.display = 'none';
+            imagePreview.style.display = 'none';
+            resultContainer.style.display = 'none';
+            analyzingText.style.display = 'none';
+            switchCameraBtn.style.display = 'none';
+
+            // Update active button
+            uploadMethodBtn.classList.remove('active');
+            webcamMethodBtn.classList.remove('active');
+
+            // Show selected method
+            switch(method) {
+                case 'upload':
+                    uploadArea.style.display = 'block';
+                    uploadMethodBtn.classList.add('active');
+                    // Stop webcam stream if active
+                    if (stream) {
+                        stream.getTracks().forEach(track => track.stop());
+                        stream = null;
+                    }
+                    break;
+                case 'webcam':
+                    webcamContainer.style.display = 'block';
+                    webcamMethodBtn.classList.add('active');
+                    initWebcam();
+                    break;
+            }
+        }
+
+        // Upload method event listeners
+        uploadArea.addEventListener('click', () => fileInput.click());
+
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = 'var(--primary)';
+            uploadArea.style.backgroundColor = 'rgba(30, 58, 138, 0.1)'; /* Using index.html primary color with opacity */
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.borderColor = 'var(--gray-ex)'; /* Using index2 gray */
+            uploadArea.style.backgroundColor = 'transparent';
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = 'var(--gray-ex)'; /* Using index2 gray */
+            uploadArea.style.backgroundColor = 'transparent';
+
+            if (e.dataTransfer.files.length) {
+                fileInput.files = e.dataTransfer.files;
+                handleFileUpload(e.dataTransfer.files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length) {
+                handleFileUpload(e.target.files[0]);
+            }
+        });
+
+        // Webcam method
+        let stream = null;
+
+        async function initWebcam() {
+            try {
+                // Stop any existing stream
+                if (stream) {
+                    stream.getTracks().forEach(track => track.stop());
+                }
+
+                const constraints = {
+                    video: {
+                        facingMode: currentFacingMode,
+                        width: { ideal: 1280 },
+                        height: { ideal: 720 }
+                    }
+                };
+
+                stream = await navigator.mediaDevices.getUserMedia(constraints);
+                webcam.srcObject = stream;
+                switchCameraBtn.style.display = 'block';
+            } catch (err) {
+                console.error("Error accessing webcam:", err);
+
+                // If back camera fails, try front camera
+                if (currentFacingMode === 'environment') {
+                    currentFacingMode = 'user';
+                    try {
+                        await initWebcam();
+                        return;
+                    } catch (fallbackErr) {
+                        console.error("Fallback camera also failed:", fallbackErr);
+                    }
+                }
+
+                alert("Could not access webcam. Please check permissions.");
+                switchCameraBtn.style.display = 'none';
+            }
+        }
+
+        switchCameraBtn.addEventListener('click', async () => {
+            // Toggle between front and back camera
+            currentFacingMode = currentFacingMode === 'user' ? 'environment' : 'user';
+
+            // Show loading indicator
+            switchCameraBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+
+            try {
+                await initWebcam();
+            } catch (err) {
+                console.error("Error switching camera:", err);
+                alert("Could not switch camera. Some devices may not support multiple cameras.");
+            }
+
+            // Restore icon
+            switchCameraBtn.innerHTML = '<i class="fas fa-sync-alt"></i>';
+        });
+
+        captureBtn.addEventListener('click', () => {
+            // Create canvas to capture image
+            const canvas = document.createElement('canvas');
+            canvas.width = webcam.videoWidth;
+            canvas.height = webcam.videoHeight;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(webcam, 0, 0, canvas.width, canvas.height);
+
+            // Convert to image and predict
+            canvas.toBlob((blob) => {
+                const url = URL.createObjectURL(blob);
+                imagePreview.src = url;
+                imagePreview.style.display = 'block';
+                webcamContainer.style.display = 'none';
+                switchCameraBtn.style.display = 'none'; // Hide switch camera button after capture
+
+                imagePreview.onload = () => {
+                    predictImage(imagePreview);
+                    URL.revokeObjectURL(url);
+                };
+            }, 'image/jpeg', 0.9);
+        });
+
+        // New classification button
+        newClassificationBtn.addEventListener('click', () => {
+            resultContainer.style.display = 'none';
+            analyzingText.style.display = 'none';
+            imagePreview.style.display = 'none'; // Hide image preview
+            switchInputMethod(activeMethod);
+        });
+
+        // Learn more button
+        learnMoreBtn.addEventListener('click', () => {
+            const currentClass = predictionClass.textContent;
+            if (currentClass && currentClass !== "Analyzing..." && currentClass !== "Error" && landmarkDatabase[currentClass]) {
+                alert(`More about ${currentClass}:\n\n${landmarkDatabase[currentClass].info}`);
+            } else {
+                 alert('No information available for this detection.');
+            }
+        });
+
+        // Handle file upload
+        function handleFileUpload(file) {
+            if (!file.type.match('image.*')) {
+                alert('Please upload an image file');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+                uploadArea.style.display = 'none';
+
+                // Show analyzing text while processing
+                analyzingText.style.display = 'block';
+                analyzingText.textContent = 'Analyzing image...';
+
+                // When image is loaded, run prediction
+                imagePreview.onload = () => {
+                    predictImage(imagePreview);
+                };
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Predict function
+        async function predictImage(imageElement) {
+            if (!model) {
+                alert('Model is still loading. Please wait...');
+                analyzingText.style.display = 'none';
+                return;
+            }
+
+            // Show loading state
+            resultContainer.style.display = 'none';
+            analyzingText.style.display = 'block';
+            analyzingText.textContent = 'Analyzing landmark...';
+
+            try {
+                // Preprocess the image
+                const tensor = tf.browser.fromPixels(imageElement)
+                    .resizeNearestNeighbor([224, 224])  // Model expects 224x224
+                    .toFloat()
+                    .div(tf.scalar(255))  // Normalize to [0,1]
+                    .expandDims();
+
+                // Predict
+                const predictions = await model.predict(tensor).data();
+                const maxPrediction = Math.max(...predictions);
+                const predictedIndex = predictions.indexOf(maxPrediction);
+                const predictedLabel = labels[predictedIndex];
+
+                // Hide analyzing text and show results
+                analyzingText.style.display = 'none';
+                resultContainer.style.display = 'block';
+
+                // Display results with animation
+                predictionClass.textContent = predictedLabel;
+                confidenceValue.textContent = `${(maxPrediction * 100).toFixed(1)}%`;
+                confidenceLevel.style.width = `${maxPrediction * 100}%`;
+
+                const landmarkData = landmarkDatabase[predictedLabel] || {
+                    info: 'No additional information available.'
+                };
+                disposalMethod.textContent = landmarkData.info;
+                // Clear potentially irrelevant fields from index2
+                recyclingInfo.textContent = '';
+                environmentalImpact.textContent = '';
+
+
+                // Clean up
+                tensor.dispose();
+            } catch (error) {
+                console.error("Prediction error:", error);
+                analyzingText.style.display = 'none';
+                resultContainer.style.display = 'block';
+                predictionClass.textContent = 'Error';
+                confidenceValue.textContent = '0%';
+                confidenceLevel.style.width = '0%';
+                disposalMethod.textContent = 'Unable to determine';
+                 // Clear potentially irrelevant fields from index2
+                recyclingInfo.textContent = '';
+                environmentalImpact.textContent = '';
+            }
+        }
+
+        // Clean up webcam on page unload
+        window.addEventListener('beforeunload', () => {
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
+        });
+
+        // Initialize with upload method on page load
+        window.addEventListener('load', () => {
+             switchInputMethod('upload');
+        });
+
+    </script>
+</body>
+</html>
