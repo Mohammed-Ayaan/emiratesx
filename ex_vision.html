@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EX Vision - Landmark Identifier</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* General Styles */
+        :root {
+            --primary: #1E3A8A; /* Dark blue */
+            --secondary: #3B82F6; /* Medium blue */
+            --accent: #10B981; /* Green */
+            --light: #F9FAFB;
+            --dark: #1F2937;
+            --text: #374151;
+            --primary-ex: #6772e5;
+            --primary-light-ex: #7795f8;
+            --secondary-ex: #24b47e;
+            --dark-ex: #1a1a1a;
+            --light-ex: #f6f9fc;
+            --gray-ex: #6b7c93;
+            --white-ex: #ffffff;
+            --shadow-ex: 0 15px 35px rgba(50,50,93,.1), 0 5px 15px rgba(0,0,0,.07);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 20px;
+            margin: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center; /* horizontal alignment */
+            align-items: center;     /* vertical alignment */
+            flex-direction: column;
+        }
+
+        /* Classifier container styles */
+        .container {
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 80px 5%;
+        }
+
+        .classifier-container,
+        .gallery-section,
+        .about-section {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .input-methods {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .method-btn {
+            background: var(--light);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .method-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .method-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .upload-area {
+            width: 100%;
+            max-width: 500px;
+            border: 2px dashed var(--gray-ex);
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-area:hover {
+            border-color: var(--primary);
+        }
+
+        .upload-area i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .upload-area p {
+            color: var(--text);
+        }
+
+        #file-input {
+            display: none;
+        }
+
+        #image-preview, #webcam-preview {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 8px;
+            display: none;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        #webcam-container {
+            display: none;
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+            /* margin-bottom: 50px; */
+        }
+
+        #webcam {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        #capture-btn {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .url-input-container {
+            display: none;
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 30px;
+        }
+
+        .result-container {
+            width: 100%;
+            max-width: 500px;
+            background: var(--light);
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            display: none;
+        }
+
+        #analyzing-text {
+            display: none;
+            width: 100%;
+            max-width: 500px;
+            background: var(--light);
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .result-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .confidence-meter {
+            height: 10px;
+            background: #e6e9f0;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .confidence-level {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            width: 0%;
+            transition: width 1s ease;
+        }
+
+        .confidence-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin: 10px 0;
+        }
+
+        .prediction-class {
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .landmark-info {
+            text-align: left;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(103, 114, 229, 0.1);
+            border-radius: 8px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+
+        .action-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .primary-btn {
+            background: var(--primary);
+            color: white;
+        }
+
+        .secondary-btn {
+            background: var(--light);
+            border: 1px solid var(--gray-ex);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-titlea {
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .section-titlea::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            margin: 1rem auto 0;
+            border-radius: 2px;
+            transform: scaleX(1);
+            transform-origin: center;
+            margin-bottom: 1rem;
+        }
+
+        .section-description2 {
+            text-align: center;
+            color: var(--text);
+            font-size: 1.1rem;
+        }
+
+        .switch-camera-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: var(--primary);
+            z-index: 10;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .classifier-container {
+                padding: 20px;
+            }
+
+            .input-methods {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .method-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.11.0"></script>
+</head>
+<body>
+    <div class="input-methods">
+        <button class="method-btn active" id="upload-btn-method">
+            <i class="fas fa-upload"></i> Upload Image
+        </button>
+        <button class="method-btn" id="webcam-btn-method">
+            <i class="fas fa-camera"></i> Use Webcam
+        </button>
+    </div>
+
+    <div class="upload-area" id="upload-area">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <h3>Drag & Drop or Click to Upload</h3>
+        <p>Supported formats: JPG, PNG, WEBP (Max 5MB)</p>
+        <input type="file" id="file-input" accept="image/*">
+    </div>
+
+    <div id="webcam-container">
+        <video id="webcam" autoplay playsinline></video>
+        <button id="switch-camera-btn" class="switch-camera-btn">
+            <i class="fas fa-sync-alt"></i>
+        </button>
+        <button id="capture-btn"><i class="fas fa-camera"></i></button>
+    </div>
+
+    <img id="image-preview" alt="Preview of uploaded image">
+
+    <div id="analyzing-text"></div>
+
+    <div class="result-container" id="result-container">
+        <h3 class="result-title">Detection Result</h3>
+        <div class="prediction-class" id="prediction-class"></div>
+        <div class="confidence-meter">
+            <div class="confidence-level" id="confidence-level"></div>
+        </div>
+        <div class="confidence-value" id="confidence-value"></div>
+
+        <div class="landmark-info" id="landmark-info">
+            <h4><i class="fas fa-info-circle"></i> Landmark Information</h4>
+            <p id="landmark-details"></p>
+        </div>
+
+        <div class="action-buttons">
+            <button class="action-btn primary-btn" id="new-classification-btn">
+                <i class="fas fa-redo"></i> New Detection
+            </button>
+            </div>
+    </div>
+
+    <script>
+        // JavaScript for Landmark Detection
+        // DOM Elements
+        const uploadArea = document.getElementById('upload-area');
+        const fileInput = document.getElementById('file-input');
+        const imagePreview = document.getElementById('image-preview');
+        const resultContainer = document.getElementById('result-container');
+        const predictionClass = document.getElementById('prediction-class');
+        const confidenceLevel = document.getElementById('confidence-level');
+        const confidenceValue = document.getElementById('confidence-value');
+        const landmarkInfoElement = document.getElementById('landmark-details');
+        const newClassificationBtn = document.getElementById('new-classification-btn');
+        // const learnMoreBtn = document.getElementById('learn-more-btn'); // Removed button, so comment out or remove this line
+        const analyzingText = document.getElementById('analyzing-text');
+
+        // Input method elements
+        const uploadMethodBtn = document.getElementById('upload-btn-method');
+        const webcamMethodBtn = document.getElementById('webcam-btn-method');
+        const webcamContainer = document.getElementById('webcam-container');
+        const webcam = document.getElementById('webcam');
+        const captureBtn = document.getElementById('capture-btn');
+
+        // Landmark data with longer descriptions
+        const landmarkDatabase = {
+            "Burj Khalifa": {
+                info: "Burj Khalifa is the tallest building in the world, located in Dubai, UAE. Standing at over 828 meters (2,717 feet), it is a global icon and a feat of engineering. Construction began in 2004 and it was officially opened in 2010. It serves as a centerpiece of downtown Dubai and includes residential, hotel, and commercial spaces. Its design is inspired by the Hymenocallis flower.",
+            },
+            "Burj Al Arab": {
+                info: "Burj Al Arab is a luxury hotel in Dubai, known for its sail-like design. It is often described as the world's only 'seven-star' hotel, though it officially has a five-star deluxe rating. Located on an artificial island, it is connected to the mainland by a private bridge. The hotel features opulent suites, fine dining restaurants, and stunning views of the Arabian Gulf.",
+            },
+            "Shiekh Zayed Grand Mosque": {
+                info: "The Sheikh Zayed Grand Mosque is one of the world's largest mosques, located in Abu Dhabi, UAE. It is known for its stunning architecture, featuring 82 domes, over 1,000 columns, 24-karat gold gilded chandeliers, and the world's largest hand-knotted carpet. It is a key place of worship and a popular tourist attraction, welcoming millions of visitors annually.",
+            },
+            "Empty": {
+                info: "No recognizable landmark was detected in the image. Please try uploading or capturing a clearer image of a known landmark in the UAE.",
+            }
+        };
+
+        // Current active input method
+        let activeMethod = 'upload';
+        let currentFacingMode = 'environment'; // Default to back camera
+        const switchCameraBtn = document.getElementById('switch-camera-btn');
+
+        // Load Teachable Machine model
+        let model, labels;
+        async function loadModel() {
+            try {
+                // Show loading state
+                predictionClass.textContent = 'Loading model...';
+                resultContainer.style.display = 'block';
+
+                // Load model
+                model = await tf.loadLayersModel('https://raw.githubusercontent.com/Mohammed-Ayaan/emiratesx/refs/heads/main/models/model.json');
+
+                // Load labels from metadata
+                const metadata = await fetch('https://raw.githubusercontent.com/Mohammed-Ayaan/emiratesx/refs/heads/main/models/metadata.json').then(res => res.json());
+                labels = metadata.labels;
+
+                console.log("Model and labels loaded successfully");
+                resultContainer.style.display = 'none';
+            } catch (err) {
+                console.error("Error loading model:", err);
+                resultContainer.style.display = 'block';
+                predictionClass.textContent = 'Error loading model';
+                confidenceValue.textContent = '0%';
+                confidenceLevel.style.width = '0%';
+                landmarkInfoElement.textContent = 'Please check console for details';
+            }
+        }
+
+        // Initialize
+        loadModel();
+
+        // Set up input method switching
+        uploadMethodBtn.addEventListener('click', () => switchInputMethod('upload'));
+        webcamMethodBtn.addEventListener('click', () => switchInputMethod('webcam'));
+
+        function switchInputMethod(method) {
+            activeMethod = method;
+
+            // Reset all UI elements
+            uploadArea.style.display = 'none';
+            webcamContainer.style.display = 'none';
+            imagePreview.style.display = 'none';
+            resultContainer.style.display = 'none';
+            analyzingText.style.display = 'none';
+            switchCameraBtn.style.display = 'none';
+
+            // Update active button
+            uploadMethodBtn.classList.remove('active');
+            webcamMethodBtn.classList.remove('active');
+
+            // Show selected method
+            switch(method) {
+                case 'upload':
+                    uploadArea.style.display = 'block';
+                    uploadMethodBtn.classList.add('active');
+                    // Stop webcam stream if active
+                    if (stream) {
+                        stream.getTracks().forEach(track => track.stop());
+                        stream = null;
+                    }
+                    break;
+                case 'webcam':
+                    webcamContainer.style.display = 'block';
+                    webcamMethodBtn.classList.add('active');
+                    initWebcam();
+                    break;
+            }
+        }
+
+        // Upload method event listeners
+        uploadArea.addEventListener('click', () => fileInput.click());
+
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = 'var(--primary)';
+            uploadArea.style.backgroundColor = 'rgba(30, 58, 138, 0.1)';
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.borderColor = 'var(--gray-ex)';
+            uploadArea.style.backgroundColor = 'transparent';
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = 'var(--gray-ex)';
+            uploadArea.style.backgroundColor = 'transparent';
+
+            if (e.dataTransfer.files.length) {
+                fileInput.files = e.dataTransfer.files;
+                handleFileUpload(e.dataTransfer.files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length) {
+                handleFileUpload(e.target.files[0]);
+            }
+        });
+
+        // Webcam method
+        let stream = null;
+
+        async function initWebcam() {
+            try {
+                // Stop any existing stream
+                if (stream) {
+                    stream.getTracks().forEach(track => track.stop());
+                }
+
+                const constraints = {
+                    video: {
+                        facingMode: currentFacingMode,
+                        width: { ideal: 1280 },
+                        height: { ideal: 720 }
+                    }
+                };
+
+                stream = await navigator.mediaDevices.getUserMedia(constraints);
+                webcam.srcObject = stream;
+                switchCameraBtn.style.display = 'block';
+            } catch (err) {
+                console.error("Error accessing webcam:", err);
+
+                // If back camera fails, try front camera
+                if (currentFacingMode === 'environment') {
+                    currentFacingMode = 'user';
+                    try {
+                        await initWebcam();
+                        return;
+                    } catch (fallbackErr) {
+                        console.error("Fallback camera also failed:", fallbackErr);
+                    }
+                }
+
+                alert("Could not access webcam. Please check permissions.");
+                switchCameraBtn.style.display = 'none';
+            }
+        }
+
+        switchCameraBtn.addEventListener('click', async () => {
+            // Toggle between front and back camera
+            currentFacingMode = currentFacingMode === 'user' ? 'environment' : 'user';
+
+            // Show loading indicator
+            switchCameraBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+
+            try {
+                await initWebcam();
+            } catch (err) {
+                console.error("Error switching camera:", err);
+                alert("Could not switch camera. Some devices may not support multiple cameras.");
+            }
+
+            // Restore icon
+            switchCameraBtn.innerHTML = '<i class="fas fa-sync-alt"></i>';
+        });
+
+        captureBtn.addEventListener('click', () => {
+            // Create canvas to capture image
+            const canvas = document.createElement('canvas');
+            canvas.width = webcam.videoWidth;
+            canvas.height = webcam.videoHeight;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(webcam, 0, 0, canvas.width, canvas.height);
+
+            // Convert to image and predict
+            canvas.toBlob((blob) => {
+                const url = URL.createObjectURL(blob);
+                imagePreview.src = url;
+                imagePreview.style.display = 'block';
+                webcamContainer.style.display = 'none';
+                switchCameraBtn.style.display = 'none'; // Hide switch camera button after capture
+
+                // Show analyzing text while processing
+                analyzingText.style.display = 'block';
+                analyzingText.textContent = 'Analyzing image...';
+
+                imagePreview.onload = () => {
+                    predictImage(imagePreview);
+                    URL.revokeObjectURL(url);
+                };
+            }, 'image/jpeg', 0.9);
+        });
+
+        // New classification button
+        newClassificationBtn.addEventListener('click', () => {
+            resultContainer.style.display = 'none';
+            analyzingText.style.display = 'none';
+            imagePreview.style.display = 'none'; // Hide image preview
+            switchInputMethod(activeMethod);
+        });
+
+        // Learn more button functionality (kept for reference, but button is removed)
+        // learnMoreBtn.addEventListener('click', () => {
+        //     const currentClass = predictionClass.textContent;
+        //     if (currentClass && currentClass !== "Analyzing..." && currentClass !== "Error" && landmarkDatabase[currentClass]) {
+        //         alert(`More about ${currentClass}:\n\n${landmarkDatabase[currentClass].info}`);
+        //     } else {
+        //          alert('No information available for this detection.');
+        //     }
+        // });
+
+        // Handle file upload
+        function handleFileUpload(file) {
+            if (!file.type.match('image.*')) {
+                alert('Please upload an image file');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+                uploadArea.style.display = 'none';
+
+                // Show analyzing text while processing
+                analyzingText.style.display = 'block';
+                analyzingText.textContent = 'Analyzing image...';
+
+                // When image is loaded, run prediction
+                imagePreview.onload = () => {
+                    predictImage(imagePreview);
+                };
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Predict function
+        async function predictImage(imageElement) {
+            if (!model) {
+                alert('Model is still loading. Please wait...');
+                analyzingText.style.display = 'none';
+                return;
+            }
+
+            // Show loading state
+            resultContainer.style.display = 'none';
+            analyzingText.style.display = 'block';
+            analyzingText.textContent = 'Analyzing landmark...';
+
+            try {
+                // Preprocess the image
+                const tensor = tf.browser.fromPixels(imageElement)
+                    .resizeNearestNeighbor([224, 224])  // Model expects 224x224
+                    .toFloat()
+                    .div(tf.scalar(255))  // Normalize to [0,1]
+                    .expandDims();
+
+                // Predict
+                const predictions = await model.predict(tensor).data();
+                const maxPrediction = Math.max(...predictions);
+                const predictedIndex = predictions.indexOf(maxPrediction);
+                const predictedLabel = labels[predictedIndex];
+
+                // Hide analyzing text and show results
+                analyzingText.style.display = 'none';
+                resultContainer.style.display = 'block';
+
+                // Display results with animation
+                predictionClass.textContent = predictedLabel;
+                confidenceValue.textContent = `${(maxPrediction * 100).toFixed(1)}%`;
+                confidenceLevel.style.width = `${maxPrediction * 100}%`;
+
+                const landmarkData = landmarkDatabase[predictedLabel] || {
+                    info: 'No additional information available.'
+                };
+                landmarkInfoElement.textContent = landmarkData.info;
+
+                // Clean up
+                tensor.dispose();
+            } catch (error) {
+                console.error("Prediction error:", error);
+                analyzingText.style.display = 'none';
+                resultContainer.style.display = 'block';
+                predictionClass.textContent = 'Error';
+                confidenceValue.textContent = '0%';
+                confidenceLevel.style.width = '0%';
+                landmarkInfoElement.textContent = 'Unable to determine landmark information.';
+            }
+        }
+
+        // Clean up webcam on page unload
+        window.addEventListener('beforeunload', () => {
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
+        });
+
+        // Initialize with upload method on page load
+        window.addEventListener('load', () => {
+             switchInputMethod('upload');
+        });
+    </script>
+</body>
+</html>
